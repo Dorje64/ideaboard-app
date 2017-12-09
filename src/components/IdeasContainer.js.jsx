@@ -22,9 +22,10 @@ class IdeasContainer extends Component{
   render(){
     return(
         <div>
+
           { this.state.ideas.map((idea) => {
             return(
-              <Idea idea={idea}/>
+              <Idea idea={idea} key={idea.id}/>
             )
           }
           )}
