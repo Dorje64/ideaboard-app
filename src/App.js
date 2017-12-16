@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 import './App.css';
-import IdeasContainer from './components/IdeasContainer.js.jsx'
+import IdeasComponent from './components/ideas_component.js.jsx'
 import Axios from 'axios'
 
 class App extends Component {
@@ -14,7 +14,7 @@ class App extends Component {
           <h1 className="App-sub-title">Write your idea on IdeaBroad</h1>
         </header>
 
-       <IdeasContainer />
+       <IdeasComponent />
       </div>
     );
   }
