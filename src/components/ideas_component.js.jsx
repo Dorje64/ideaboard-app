@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
 import IdeaComponent from './idea_component.js.jsx'
+import IdeaFormComponent from './idea_form_component.js.jsx'
 
 class IdeasComponent extends Component{
   constructor(props){
     super(props)
     this.state ={
-      ideas: []
+      ideas: [],
+      editingIdea: null
     }
   }
 
@@ -22,7 +24,7 @@ class IdeasComponent extends Component{
         console.log(response)
         let Ideas = this.state.ideas
         Ideas.unshift(response.data)
-        this.setState({ideas: Ideas})
+        this.setState({ideas: Ideas, editingIdea: response.data.id})
       }
     ).catch( error => {
         console.log(error)
@@ -40,16 +42,18 @@ class IdeasComponent extends Component{
   }
 
   render(){
-    debugger;
     return(
         <div>
         <div className="blue-subheader">
           <button className="newIdeaButton" onClick={this.newIdea}> New Idea </button>
         </div>
-          { this.state.ideas.map((idea) => {
-            return(
-              <IdeaComponent idea={idea} key={idea.id}/>
-            )
+          { this.state.ideas.map( (idea) => {
+            if (this.state.editingIdea === idea.id) {
+              return( <IdeaFormComponent idea={idea} key={idea.key} /> )
+            }
+            else{
+              return( <IdeaComponent idea={idea} key={idea.id}/> )
+            }
           }
           )}
         </div>
