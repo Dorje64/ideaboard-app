@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './App.css';
+import './style/App.css';
+import './style/ideaform.css'
+import './style/ideas.css'
+
 import IdeasComponent from './components/ideas_component.js.jsx'
 import Axios from 'axios'
 
