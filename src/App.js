@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './style/App.css';
-import './style/ideaform.css'
-import './style/ideas.css'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import HomePage  from './components/home_page.js.jsx'
+import SignIn from './components/sign_in.js.jsx'
 
-import IdeasComponent from './components/ideas_component.js.jsx'
+// import IdeasComponent from './components/ideas_component.js.jsx'
 
 class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">IdeaBroad</h1>
-          <h1 className="App-sub-title">Write your idea on IdeaBroad</h1>
-        </header>
-
-       <IdeasComponent key = {IdeasComponent.id}/>
-      </div>
+      <BrowserRouter>
+        <Switch>
+        <Route path= '/sign' component = {SignIn}/>
+        <Route path= '/' component = {HomePage} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }
