@@ -32,7 +32,14 @@ class IdeasComponent extends Component{
     )
   }
 
-  componentDidMount(){
+  updateIdeas = (idea) => {
+    let ideaIndex = this.state.ideas.findIndex(x => x.id === idea.id)
+    let ideas = this.state.ideas
+    ideas[ideaIndex] = idea
+    this.setState({ideas: ideas , editingIdea: null})
+  }
+
+  componentWillMount(){
     Axios.get('http://localhost:3001/api/v1/ideas.json')
     .then( (response) => {
       console.log(response)
@@ -41,18 +48,22 @@ class IdeasComponent extends Component{
     .catch(error=>{ console.log(error)})
   }
 
+  enableEdit = (id) => {
+    this.setState({editingIdea: id})
+  }
+
   render(){
     return(
         <div>
         <div className="blue-subheader">
-          <button className="newIdeaButton" onClick={this.newIdea}> New Idea </button>
+          <button className="newIdeaButton" onClick={this.newIdea} > New Idea </button>
         </div>
           { this.state.ideas.map( (idea) => {
             if (this.state.editingIdea === idea.id) {
-              return( <IdeaFormComponent idea={idea} key={idea.key} /> )
+              return( <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} /> )
             }
             else{
-              return( <IdeaComponent idea={idea} key={idea.id}/> )
+              return( <IdeaComponent idea={idea} key={idea.id} enableEdit={this.enableEdit}/> )
             }
           }
           )}
