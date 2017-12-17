@@ -5,7 +5,6 @@ import './style/ideaform.css'
 import './style/ideas.css'
 
 import IdeasComponent from './components/ideas_component.js.jsx'
-import Axios from 'axios'
 
 class App extends Component {
 
@@ -17,7 +16,7 @@ class App extends Component {
           <h1 className="App-sub-title">Write your idea on IdeaBroad</h1>
         </header>
 
-       <IdeasComponent />
+       <IdeasComponent key = {IdeasComponent.id}/>
       </div>
     );
   }
