@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Axios from 'axios'
 import IdeaComponent from './idea_component.js.jsx'
 import IdeaFormComponent from './idea_form_component.js.jsx'
+import Search from './search.js.jsx'
 
 class IdeasComponent extends Component{
   constructor(props){
@@ -59,6 +60,10 @@ class IdeasComponent extends Component{
     this.setState({ideas: ideas , editingIdea: null})
   }
 
+  handleSearch = (foundItem) => {
+    this.setState( {ideas: foundItem} )
+  }
+
   enableEdit = (id) => {
     this.setState({editingIdea: id})
   }
@@ -68,6 +73,7 @@ class IdeasComponent extends Component{
         <div>
         <div className="blue-subheader">
           <button className="newIdeaButton" onClick={this.newIdea} > New Idea </button>
+          <Search searchIdea = {this.handleSearch} />
         </div>
           { this.state.ideas.map( (idea) => {
             if (this.state.editingIdea === idea.id) {
