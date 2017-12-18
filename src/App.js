@@ -1,17 +1,21 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
-import './App.css';
-import IdeasContainer from './components/IdeasContainer.js.jsx'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import HomePage  from './components/home_page.js.jsx'
+import SignIn from './components/sign_in.js.jsx'
+
+// import IdeasComponent from './components/ideas_component.js.jsx'
 
 class App extends Component {
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">IdeaBroad</h1>
-        </header>
-       <IdeasContainer />
-      </div>
+      <BrowserRouter>
+        <Switch>
+        <Route path= '/sign' component = {SignIn}/>
+        <Route path= '/' component = {HomePage} />
+        </Switch>
+      </BrowserRouter>
     );
   }
 }

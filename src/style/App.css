@@ -1,0 +1,23 @@
+.App-header {
+  text-align: center;
+  height: 150px;
+  padding: 20px;
+  background-color: #990066;
+  color: #CCCCFF;
+}
+
+.App-sub-title{
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  margin-top: -80px;
+  font-size: 33px;
+}
+
+body{
+  background-color: #CCCCFF;
+}
+
+.App-title {
+  font-size: 100px;
+  font-family: "Comic Sans MS", cursive, sans-serif;
+  margin-top: -30px;
+}
