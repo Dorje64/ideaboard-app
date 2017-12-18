@@ -35,9 +35,9 @@ class IdeaFormComponent extends Component {
       <div className="tile">
         <form onSubmit= {this.SubmitForm} >
           <input className='input' type="text"
-            name="title" placeholder='Enter a Title' onChange={this.handleInput} />
+            name="title" placeholder='Enter a Title' onChange={this.handleInput} defaultValue = {this.props.idea.title}/>
           <textarea className='input' name="body"
-            placeholder='Describe your idea' onChange={this.handleInput} ></textarea>
+            placeholder='Describe your idea' onChange={this.handleInput} defaultValue = {this.props.idea.body}></textarea>
             <input type="submit" value="Submit"/>
         </form>
       </div>
