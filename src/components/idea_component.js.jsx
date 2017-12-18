@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 
 const IdeaComponent = ({idea, enableEdit}) =>
               <div className="tile" key={idea.id} >
