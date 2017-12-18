@@ -12,6 +12,15 @@ class IdeasComponent extends Component{
     }
   }
 
+  componentWillMount(){
+    Axios.get('http://localhost:3001/api/v1/ideas.json')
+    .then( (response) => {
+      console.log(response)
+      this.setState({ideas: response.data})
+    })
+    .catch(error=>{ console.log(error)})
+  }
+
   newIdea = () =>{
     Axios.post('http://localhost:3001/api/v1/ideas',
     {idea:
@@ -32,20 +41,22 @@ class IdeasComponent extends Component{
     )
   }
 
+  deleteIdea = (id) => {
+    Axios.delete('http://localhost:3001/api/v1/ideas/' + String(id))
+    .then(response => {
+      let ideaIndex = this.state.ideas.findIndex(x => x.id === id)
+      let idea = this.state.ideas
+      idea.splice(ideaIndex,1)
+      this.setState(idea: idea)
+    })
+    .catch(error => console.log(error))
+  }
+
   updateIdeas = (idea) => {
     let ideaIndex = this.state.ideas.findIndex(x => x.id === idea.id)
     let ideas = this.state.ideas
     ideas[ideaIndex] = idea
     this.setState({ideas: ideas , editingIdea: null})
-  }
-
-  componentWillMount(){
-    Axios.get('http://localhost:3001/api/v1/ideas.json')
-    .then( (response) => {
-      console.log(response)
-      this.setState({ideas: response.data})
-    })
-    .catch(error=>{ console.log(error)})
   }
 
   enableEdit = (id) => {
@@ -63,7 +74,7 @@ class IdeasComponent extends Component{
               return( <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} /> )
             }
             else{
-              return( <IdeaComponent idea={idea} key={idea.id} enableEdit={this.enableEdit}/> )
+              return( <IdeaComponent idea={idea} key={idea.id} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} /> )
             }
           }
           )}
