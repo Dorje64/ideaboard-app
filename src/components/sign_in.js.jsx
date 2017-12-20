@@ -15,10 +15,20 @@ export default class SignIn extends Component{
   }
 
   handleSubmit = (e) => {
-    e.priventDefault();
-    // Axios.post()
-    // .then()
-    // .catch();
+    e.preventDefault();
+
+    Axios.post('http://localhost:3001/auth/sign_in',
+      {
+          email: this.state.email,
+          password: this.state.password
+      })
+    .then( response => {
+      debugger;
+    })
+    .catch( error =>
+    {
+      debugger;
+    });
   }
 
   render(){
