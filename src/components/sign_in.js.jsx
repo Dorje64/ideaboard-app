@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
+import Localstorage from 'reactjs-localstorage'
 
 export default class SignIn extends Component{
   constructor(props){
@@ -19,16 +20,13 @@ export default class SignIn extends Component{
 
     Axios.post('http://localhost:3001/auth/sign_in',
       {
-          email: this.state.email,
-          password: this.state.password
+        email: this.state.email,
+        password: this.state.password
       })
     .then( response => {
-      debugger;
+      Localstorage.setItem('token', response.headers)
     })
-    .catch( error =>
-    {
-      debugger;
-    });
+    .catch( error => console.log('invalid email or password'));
   }
 
   render(){

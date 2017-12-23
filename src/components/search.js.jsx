@@ -15,6 +15,7 @@ class Search extends Component{
 
   searchIdea = (e) => {
     e.preventDefault();
+
     let keyword = this.state.keyword;
     Axios.post('http://localhost:3001/api/v1/ideas/search',
       {
@@ -30,12 +31,10 @@ class Search extends Component{
 
   render(){
       return(
-        <div>
-          <form onSubmit= {this.searchIdea} >
+          <form onSubmit= { this.searchIdea } >
             <input type='text' name='keyword' placeholder='title' onChange = {this.handleInput} />
             <input type='submit' value="Search" />
           </form>
-        </div>
       )
   }
 
