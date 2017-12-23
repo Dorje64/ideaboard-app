@@ -1,12 +1,15 @@
 import React from 'react'
+import {Col, Card, CardHeader, CardText, CardBody, CardSubtitle, Button, CardTitle, CardFooter} from 'reactstrap'
 
 const IdeaComponent = ({idea, enableEdit, deleteIdea}) =>
-              <div className="tile" key={idea.id} >
-                <h4>{idea.title}</h4>
-                <p>{idea.body}</p>
-                <button onClick= {()=> {enableEdit(idea.id)} } > Edit </button>
-                <br />
-                <button onClick = { () => {deleteIdea(idea.id)} }> Delete </button>
-              </div>
+      <Card body color="info" className="card-pull-down">
+        <CardHeader tag="h3"> Featured</CardHeader>
+          <CardBody>
+            <CardTitle>Special Title Treatment</CardTitle>
+            <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
+            <Button color="primary">Go somewhere</Button>
+          </CardBody>
+        <CardFooter className="text-muted">Footer</CardFooter>
+      </Card>
 
 export default IdeaComponent
