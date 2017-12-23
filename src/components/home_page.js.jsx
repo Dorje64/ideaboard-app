@@ -6,7 +6,7 @@ import '../style/ideas.css'
 import Header from './header.js.jsx'
 import Sidebar from './sidebar.js.jsx'
 import IdeasComponent from './ideas_component.js.jsx'
-import {Grid, Row, Col} from 'react-bootstrap'
+import {Container, Row, Col} from 'reactstrap'
 
 class HomePage extends Component {
 
@@ -14,16 +14,19 @@ class HomePage extends Component {
     return (
       <div className="App">
         <Header />
-        <Grid >
+        <Container fluid>
           <Row>
-            <Col md={1} xs={4}>
+            <Col md={2} xs={2} className="sidebar-left">
               <Sidebar />
             </Col>
-            <Col md={11} xs={8} >
+            <Col md={8} xs={8} >
               <IdeasComponent key = {IdeasComponent.id}/>
             </Col>
+            <Col md={2} xs={4} className="sidebar-right">
+              <Sidebar />
+            </Col>
           </Row>
-        </Grid>
+        </Container>
       </div>
     );
   }
