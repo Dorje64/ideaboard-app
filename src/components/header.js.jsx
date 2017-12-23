@@ -2,7 +2,7 @@ import React from 'react'
 import {Navbar} from 'react-bootstrap'
 
 const Header = () =>
-  <Navbar collapseOnSelect>
+  <Navbar className="my-navbar">
     <Navbar.Header>
       <Navbar.Brand>
         <a href="#">IdeaBroad</a>
