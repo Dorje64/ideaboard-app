@@ -61,7 +61,7 @@ body {
 .idea-button:hover{
   color: #ffe484 !important;
   border: solid 1px #ffe484 !important;
-  box-shadow: 2px 2px #ffe484;
+  /*box-shadow: 2px 2px #ffe484;*/
 }
 
 .conversation-search{
@@ -73,4 +73,21 @@ body {
 .conversation-font{
   color: #563d7c;
   margin-bottom: 30px;
+}
+
+.ib-auth-field{
+  margin: 25px 0 25px 0 !important;
+}
+
+.ib-auth-field:focus{
+  border: solid 1px #563d9c !important;
+  /*box-shadow: 2px 2px 2px 2px #563d9c !important;*/
+}
+
+.idea-button.ib-auth{
+  margin-bottom: 25px;
+}
+
+.ib-auth-container{
+  margin-top: 55px;
 }
