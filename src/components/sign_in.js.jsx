@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {Container, Row, Col, Card, CardHeader, CardText,CardBody} from 'reactstrap'
 import Axios from 'axios'
 import Localstorage from 'reactjs-localstorage'
 
@@ -31,14 +32,28 @@ export default class SignIn extends Component{
 
   render(){
     return(
-      <div>
-        <h1> Sign In</h1>
-        <form onSubmit= {this.handleSubmit}>
-          <input type="text" name="email" placeholder="Email" onChange={this.handleInput}/>
-          <input type="password" name="password" placeholder="Password" onChange={this.handleInput}/>
-          <input type="submit" value="submit" />
-        </form>
-      </div>
+      <Container>
+        <Row>
+          <Col md={{size: 4, offset: 4}}>
+            <Card className="ib-auth-container">
+              <CardHeader className="card-header-fixed">
+                <CardText tag="h3"> Login </CardText>
+              </CardHeader>
+              <form onSubmit= {this.handleSubmit}>
+                <Row>
+                  <Col md={{size:10, offset:1}}>
+                    <CardBody>
+                      <input type="text" name="email" className= "form-control ib-auth-field" placeholder="Email" onChange={this.handleInput}/>
+                      <input type="password" name="password" className = "form-control ib-auth-field" placeholder="Password" onChange={this.handleInput}/>
+                      <input type="submit" className="btn idea-button ib-auth" value="Login" />
+                    </CardBody>
+                  </Col>
+                </Row>
+              </form>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     )
   }
 }
