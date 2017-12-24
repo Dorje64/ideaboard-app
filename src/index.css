@@ -3,3 +3,91 @@ body {
   padding: 0;
   font-family: sans-serif;
 }
+
+.my-navbar {
+  background-color: #563d7c;
+  min-height: 4rem;
+  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.05), inset 0 -1px 0 rgba(0,0,0,.1);
+}
+
+.sidebar-left {
+  border-right: 1px solid rgba(0,0,0,.1);
+  min-height: 110%;
+}
+
+.sidebar-right{
+  border-left: 1px solid rgba(0,0,0,.1);
+  min-height: 110%;
+}
+
+.card-pull-down{
+  margin-top: 30px;
+}
+
+.idea-menu{
+  padding: 15px 0 15px 0;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+}
+
+.align-item-center{
+  align-items: center!important;
+}
+
+.card-body-fixed-height{
+  min-height: 100px;
+  /*background-color: #ffe484;*/
+}
+
+.card-header-fixed{
+  min-height: 41px;
+  background-color: #563d7c!important;
+  color: #f8f9fa;
+}
+
+.brand-name{
+  color: #fff;
+}
+
+.search-input:focus{
+  border: solid 1px #563d9c !important;
+  box-shadow: 2px 2px 2px #563d9c !important;
+}
+
+.idea-button{
+  background-color: #563d7c !important;
+  color: #fff !important;
+}
+
+.idea-button:hover{
+  color: #ffe484 !important;
+  border: solid 1px #ffe484 !important;
+  /*box-shadow: 2px 2px #ffe484;*/
+}
+
+.conversation-search{
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding: 15px 0 15px 0;
+}
+
+.conversation-font{
+  color: #563d7c;
+  margin-bottom: 30px;
+}
+
+.ib-auth-field{
+  margin: 25px 0 25px 0 !important;
+}
+
+.ib-auth-field:focus{
+  border: solid 1px #563d9c !important;
+  /*box-shadow: 2px 2px 2px 2px #563d9c !important;*/
+}
+
+.idea-button.ib-auth{
+  margin-bottom: 25px;
+}
+
+.ib-auth-container{
+  margin-top: 55px;
+}

@@ -3,6 +3,8 @@ import Axios from 'axios'
 import IdeaComponent from './idea_component.js.jsx'
 import IdeaFormComponent from './idea_form_component.js.jsx'
 import Search from './search.js.jsx'
+import {Container, Row, Col, Button} from 'reactstrap'
+
 
 class IdeasComponent extends Component{
   constructor(props){
@@ -70,21 +72,34 @@ class IdeasComponent extends Component{
 
   render(){
     return(
-        <div>
-        <div className="blue-subheader">
-          <button className="newIdeaButton" onClick={this.newIdea} > New Idea </button>
-          <Search searchIdea = {this.handleSearch} />
-        </div>
-          { this.state.ideas.map( (idea) => {
-            if (this.state.editingIdea === idea.id) {
-              return( <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} /> )
-            }
-            else{
-              return( <IdeaComponent idea={idea} key={idea.id} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} /> )
-            }
-          }
-          )}
-        </div>
+        <Container>
+          <Row className="idea-menu">
+            <Col md={8} xs={4}>
+              <Button className="idea-button" onClick={this.newIdea} > New Idea </Button>
+            </Col>
+            <Col md={4}>
+              <Search searchIdea = {this.handleSearch}/>
+            </Col>
+          </Row>
+
+          <Row>
+              { this.state.ideas.map( (idea) => {
+                if (this.state.editingIdea === idea.id) {
+                  return(
+                    <Col md={4}>
+                      <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} />
+                    </Col> )
+                }
+                else{
+                  return(
+                    <Col md={4} key={idea.id}>
+                      <IdeaComponent idea={idea} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} />
+                    </Col>
+                    )}
+                  }
+              )}
+          </Row>
+        </Container>
     )
   }
 }

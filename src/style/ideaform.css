@@ -2,17 +2,18 @@
   border: 0;
   background: none;
   outline: none;
-  margin-top:10px;
-  width: 140px;
-  font-size: 11px;
+  width: 100%;
+  color: #fff;
+  /*padding: -5px, -15px, -5px, -15px;*/
 }
 
-.input:focus {
+/*.input:focus {
   border: solid 1px lightgrey;
-}
+}*/
 
 textarea {
   resize: none;
   height: 90px;
   font-size: 11px;
+  color: black !important;
 }
