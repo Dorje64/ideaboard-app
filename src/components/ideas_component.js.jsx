@@ -92,8 +92,8 @@ class IdeasComponent extends Component{
                 }
                 else{
                   return(
-                    <Col md={4}>
-                      <IdeaComponent idea={idea} key={idea.id} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} />
+                    <Col md={4} key={idea.id}>
+                      <IdeaComponent idea={idea} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} />
                     </Col>
                     )}
                   }
