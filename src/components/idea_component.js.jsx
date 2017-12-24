@@ -1,15 +1,24 @@
 import React from 'react'
-import {Col, Card, CardHeader, CardText, CardBody, CardSubtitle, Button, CardTitle, CardFooter} from 'reactstrap'
+import {Row,Col, Card, CardHeader, CardText, CardBody, CardFooter} from 'reactstrap'
 
 const IdeaComponent = ({idea, enableEdit, deleteIdea}) =>
-      <Card body color="info" className="card-pull-down">
-        <CardHeader tag="h3"> Featured</CardHeader>
-          <CardBody>
-            <CardTitle>Special Title Treatment</CardTitle>
-            <CardText>With supporting text below as a natural lead-in to additional content.</CardText>
-            <Button color="primary">Go somewhere</Button>
+      <Card className="card-pull-down">
+        <CardHeader className="card-header-fixed">
+            <Row>
+              <Col md={8} tag="h6" >
+                {idea.title}
+              </Col>
+              <Col md={4} >
+                    <span className="fa fa-trash" aria-hidden="true" onClick= {() => enableEdit(idea.id) } >Edt</span>
+                                           |
+                    <span className="fa fa-pencil-o" aria-hidden="true" onClick= {() => deleteIdea(idea.id)}>Dlt</span>
+              </Col>
+            </Row>
+        </CardHeader>
+          <CardBody className="card-body-fixed-height">
+            <CardText>{idea.body}</CardText>
           </CardBody>
-        <CardFooter className="text-muted">Footer</CardFooter>
+        <CardFooter className="text-muted">{idea.created_at}</CardFooter>
       </Card>
 
 export default IdeaComponent
