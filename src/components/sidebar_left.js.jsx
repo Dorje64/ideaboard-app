@@ -1,6 +1,6 @@
 import React from 'react'
 
-const SidebarRight = () =>
+const SidebarLeft = () =>
   <div>
     <form className="conversation-search">
       <h3 className="conversation-font"> #conversations </h3>
@@ -8,4 +8,4 @@ const SidebarRight = () =>
     </form>
   </div>
 
-export default SidebarRight
+export default SidebarLeft
