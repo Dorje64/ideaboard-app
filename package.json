@@ -4,22 +4,14 @@
   "private": true,
   "dependencies": {
     "axios": "^0.17.1",
-<<<<<<< HEAD
-    "bootstrap": "^3.3.7",
-=======
     "bootstrap": "^4.0.0-alpha.6",
     "font-awesome": "^4.7.0",
->>>>>>> 6059cb594073df80056c9a19136118247e44aa93
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
-<<<<<<< HEAD
-    "reactjs-localstorage": "0.0.5"
-=======
     "reactstrap": "^5.0.0-alpha.4"
->>>>>>> 6059cb594073df80056c9a19136118247e44aa93
   },
   "scripts": {
     "start": "react-scripts start",

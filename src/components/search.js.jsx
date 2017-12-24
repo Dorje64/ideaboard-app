@@ -31,14 +31,6 @@ class Search extends Component{
 
   render(){
       return(
-<<<<<<< HEAD
-          <form onSubmit= { this.searchIdea } >
-            <input type='text' name='keyword' placeholder='title' onChange = {this.handleInput} />
-            <input type='submit' value="Search" />
-          </form>
-      )
-  }
-=======
         <div>
           <form onSubmit= {this.searchIdea}>
             <div className="input-group">
@@ -50,7 +42,6 @@ class Search extends Component{
           </form>
         </div>
       )}
->>>>>>> 6059cb594073df80056c9a19136118247e44aa93
 
 }
 export default Search
