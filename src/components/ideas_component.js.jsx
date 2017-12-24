@@ -74,23 +74,29 @@ class IdeasComponent extends Component{
     return(
         <Container>
           <Row className="idea-menu">
-            <Button className="primary" onClick={this.newIdea} > New Idea </Button>
-            <Search searchIdea = {this.handleSearch} className="pullright"/>
+            <Col md={8} xs={4}>
+              <Button className="idea-button" onClick={this.newIdea} > New Idea </Button>
+            </Col>
+            <Col md={4}>
+              <Search searchIdea = {this.handleSearch}/>
+            </Col>
           </Row>
 
           <Row>
               { this.state.ideas.map( (idea) => {
                 if (this.state.editingIdea === idea.id) {
-                  return( <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} /> )
+                  return(
+                    <Col md={4}>
+                      <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} />
+                    </Col> )
                 }
                 else{
                   return(
                     <Col md={4}>
                       <IdeaComponent idea={idea} key={idea.id} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} />
                     </Col>
-                    )
-                }
-              }
+                    )}
+                  }
               )}
           </Row>
         </Container>
