@@ -32,10 +32,10 @@ class Search extends Component{
       return(
         <div>
           <form onSubmit= {this.searchIdea}>
-            <div class="input-group">
+            <div className="input-group">
               <input type="text" name='keyword' placeholder='title' onChange = {this.handleInput} className="form-control search-input" placeholder="Search for..." aria-label="Search for..."/>
-              <span class="input-group-btn">
-                <input type="submit" value= "Go!" className="btn idea-button" type="button"/>
+              <span className="input-group-btn">
+                <input type="submit" value= "Go!" className="btn idea-button"/>
               </span>
             </div>
           </form>
