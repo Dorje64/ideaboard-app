@@ -31,13 +31,16 @@ class Search extends Component{
   render(){
       return(
         <div>
-          <form onSubmit= {this.searchIdea} >
-            <input type='text' name='keyword' placeholder='title' onChange = {this.handleInput} />
-            <input type='submit' value="Search" />
+          <form onSubmit= {this.searchIdea}>
+            <div class="input-group">
+              <input type="text" name='keyword' placeholder='title' onChange = {this.handleInput} className="form-control search-input" placeholder="Search for..." aria-label="Search for..."/>
+              <span class="input-group-btn">
+                <input type="submit" value= "Go!" className="btn idea-button" type="button"/>
+              </span>
+            </div>
           </form>
         </div>
-      )
-  }
+      )}
 
 }
 export default Search
