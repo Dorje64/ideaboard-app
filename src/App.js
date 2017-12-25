@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch} from 'react-router-do
 import HomePage  from './components/home_page.js.jsx'
 import SignIn from './components/sign_in.js.jsx'
 import SignUp from './components/sign_up.js.jsx'
-import {reactLocalStorage as Localstorage} from 'reactjs-localstorage';
+import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
 
 // import IdeasComponent from './components/ideas_component.js.jsx'
 //conmponent for 404 error
@@ -14,7 +14,13 @@ const PageNotFound = ({location}) =>
   </div>
 
 function CheckAuth() {
-  return true;
+  let tokens = LocalStorage.getObject('tokens')
+  let timeNow = new Date();
+  if(tokens && tokens.expiry > timeNow.getTime()/1000 ){
+      return true;
+  }else{
+    return false
+  }
 }
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
