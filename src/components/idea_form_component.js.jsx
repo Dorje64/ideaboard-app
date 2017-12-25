@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
-import {Card, CardHeader, CardText, CardBody, CardFooter} from 'reactstrap'
+import {Card, CardHeader, CardBody} from 'reactstrap'
 
 class IdeaFormComponent extends Component {
   constructor(props) {
