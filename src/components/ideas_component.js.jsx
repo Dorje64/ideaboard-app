@@ -15,7 +15,7 @@ class IdeasComponent extends Component{
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     Axios.get('http://localhost:3001/api/v1/ideas.json')
     .then( (response) => {
       console.log(response)
