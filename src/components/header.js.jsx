@@ -12,7 +12,7 @@ const Header = () =>
         </Navbar.Brand>
       </Navbar.Header>
     </Col>
-    <Col md={{size:2, offset:9}}>
+    <Col md={2} className="offset-md-8">
       <LogOut/>
     </Col>
     </Row>

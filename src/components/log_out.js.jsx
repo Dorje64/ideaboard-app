@@ -19,7 +19,7 @@ class LogOut extends Component{
     if(this.state.redirect){
       return <Redirect to='/' />
     }else{
-      return <button onClick={this.handleLogout}>LogOut</button>
+      return <button onClick={this.handleLogout} className="btn" >Log Out</button>
     }
 
   }

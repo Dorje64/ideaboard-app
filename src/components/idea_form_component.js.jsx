@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
-import {Card, CardHeader, CardBody} from 'reactstrap'
+import {Card, CardHeader, CardBody, CardFooter} from 'reactstrap'
 
 class IdeaFormComponent extends Component {
   constructor(props) {
@@ -41,7 +41,9 @@ class IdeaFormComponent extends Component {
           <CardBody className="card-body-fixed-height">
             <textarea className='input' name="body"
             placeholder='Describe your idea' onChange={this.handleInput} defaultValue = {this.props.idea.body}/></CardBody>
-          <input type="submit" value="Submit"/>
+          <CardFooter>
+            <input type="submit" value="Save" className="btn"/>
+          </CardFooter>
         </form>
       </Card>
     );
