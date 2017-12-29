@@ -67,15 +67,22 @@ body {
   /*box-shadow: 2px 2px #ffe484;*/
 }
 
-.conversation-search{
+.conversation-menu{
   align-items: center;
   border-bottom: 1px solid rgba(0,0,0,.1);
   padding: 15px 0 15px 0;
+  margin-bottom: 15px;
 }
 
-.conversation-font{
+.conversation-item{
   color: #563d7c;
-  margin-bottom: 30px;
+  margin-bottom: 15px;
+  /*margin-bottom: 30px;*/
+}
+
+.conversation-create-button{
+  background-color: #563d7c !important;
+  color: #fff !important;
 }
 
 .ib-auth-field{
