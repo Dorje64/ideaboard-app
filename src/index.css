@@ -101,3 +101,8 @@ body {
 .ib-auth-container{
   margin-top: 55px;
 }
+
+.messageContainer{
+  min-height: 500px;
+  padding: 20% ,20% ,20%, 20%;
+}
