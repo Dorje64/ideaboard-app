@@ -102,7 +102,9 @@ class SidebarLeft extends Component{
         {conversationMenu}
         <ul className="list-group">
         {this.state.conversations.map( conversation =>
-          <li key= {conversation.id} className="list-group-item"> {conversation.subject} </li>
+          <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversation(conversation.id)}} >
+           {conversation.subject}
+          </li>
         )}
         </ul>
         </div>
