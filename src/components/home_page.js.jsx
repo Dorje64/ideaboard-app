@@ -8,8 +8,20 @@ import SidebarLeft from './sidebar_left.js.jsx'
 import SidebarRight from './sidebar_right.js.jsx'
 import IdeasComponent from './ideas_component.js.jsx'
 import {Container, Row, Col} from 'reactstrap'
+import Conversation from './conversation.js.jsx'
 
 class HomePage extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {
+      conversationId: null
+    }
+  }
+
+  renderConversation = (id) => {
+    this.setState({conversationId: id})
+  }
 
   render() {
     return (
@@ -18,10 +30,10 @@ class HomePage extends Component {
         <Container fluid>
           <Row>
             <Col md={2} xs={2} className="sidebar-left">
-              <SidebarLeft />
+              <SidebarLeft conversation = {this.renderConversation}/>
             </Col>
             <Col md={8} xs={8} >
-              <IdeasComponent key = {IdeasComponent.id}/>
+              { this.state.conversationId ? (<Conversation id = {this.state.conversationId} />) : (<IdeasComponent/>)}
             </Col>
             <Col md={2} xs={4} className="sidebar-right">
               <SidebarRight />

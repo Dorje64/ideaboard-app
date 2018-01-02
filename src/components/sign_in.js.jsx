@@ -28,6 +28,7 @@ export default class SignIn extends Component{
       })
     .then( response => {
       LocalStorage.setObject('tokens', response.headers);
+      LocalStorage.setObject('data', response.data.data);
       this.setState({redirect: true})
     })
     .catch( error => {

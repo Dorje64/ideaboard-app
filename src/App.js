@@ -14,8 +14,8 @@ const PageNotFound = ({location}) =>
   </div>
 
 function CheckAuth() {
-  let tokens = LocalStorage.getObject('tokens')
-  let timeNow = new Date();
+  const tokens = LocalStorage.getObject('tokens')
+  const timeNow = new Date();
   if(tokens && tokens.expiry > timeNow.getTime()/1000 ){
       return true;
   }else{
