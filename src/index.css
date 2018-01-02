@@ -103,6 +103,8 @@ body {
 }
 
 .messageContainer{
-  min-height: 500px;
+  height: 530px;
   padding: 20% ,20% ,20%, 20%;
+  border:  solid 1px #563d9c !important;
+  overflow-x: hidden;
 }
