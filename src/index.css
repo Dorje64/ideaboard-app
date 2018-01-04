@@ -108,3 +108,8 @@ body {
   border:  solid 1px #563d9c !important;
   overflow-x: hidden;
 }
+
+.conversation-list{
+  height: 400px;
+  overflow-x: hidden;
+}
