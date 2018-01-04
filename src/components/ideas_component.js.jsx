@@ -4,7 +4,7 @@ import IdeaComponent from './idea_component.js.jsx'
 import IdeaFormComponent from './idea_form_component.js.jsx'
 import Search from './search.js.jsx'
 import {Container, Row, Col, Button} from 'reactstrap'
-
+const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas'
 
 class IdeasComponent extends Component{
   constructor(props){
@@ -16,7 +16,7 @@ class IdeasComponent extends Component{
   }
 
   componentDidMount(){
-    Axios.get('http://localhost:3001/api/v1/ideas.json')
+    Axios.get(IDEA_SERVER)
     .then( (response) => {
       console.log(response)
       this.setState({ideas: response.data})
@@ -25,7 +25,7 @@ class IdeasComponent extends Component{
   }
 
   newIdea = () =>{
-    Axios.post('http://localhost:3001/api/v1/ideas',
+    Axios.post(IDEA_SERVER,
     {idea:
       {
         title: '',
@@ -45,7 +45,7 @@ class IdeasComponent extends Component{
   }
 
   deleteIdea = (id) => {
-    Axios.delete('http://localhost:3001/api/v1/ideas/' + String(id))
+    Axios.delete(IDEA_SERVER + String(id))
     .then(response => {
       let ideaIndex = this.state.ideas.findIndex(x => x.id === id)
       let idea = this.state.ideas

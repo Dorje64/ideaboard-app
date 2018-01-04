@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Axios from 'axios'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
 import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
+const CONVERSATION_SERVER = 'http://localhost:3001/api/v1/conversations'
 
 class SidebarLeft extends Component{
   constructor(props){
@@ -19,7 +20,7 @@ class SidebarLeft extends Component{
 
   componentDidMount(){
     const {uid} = LocalStorage.getObject('tokens')
-    Axios.get('http://localhost:3001/api/v1/conversations',
+    Axios.get(CONVERSATION_SERVER,
       {params: { uid: uid }}
     )
     .then( response => {
@@ -38,10 +39,9 @@ class SidebarLeft extends Component{
     }
 
   createConversation = () => {
-    // e.preventDefault();
     const {subject,body,receiver} = this.state
     const {uid} = LocalStorage.getObject('tokens')
-    Axios.post('http://localhost:3001/api/v1/conversations',
+    Axios.post(CONVERSATION_SERVER,
        {
         subject: subject,
         body: body,
@@ -81,7 +81,7 @@ class SidebarLeft extends Component{
 
           </ModalBody>
           <ModalFooter>
-            <Button className="conversation-item conversation-create-button" type="submit" onClick={ () => {this.createConversation()}}>Do Something</Button>{' '}
+            <Button className="conversation-item conversation-create-button" type="submit" onClick={ () => {this.createConversation()}}>Create</Button>{' '}
             <Button color="secondary" className="conversation-item conversation-create-button" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
@@ -98,18 +98,17 @@ class SidebarLeft extends Component{
       </div>
 
     return(
-        <div>
+      <div>
         {conversationMenu}
-        <ul className="list-group">
-        {this.state.conversations.map( conversation =>
-          <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversation(conversation.id)}} >
-           {conversation.subject}
-          </li>
-        )}
+        <ul className="list-group conversation-list">
+          {this.state.conversations.map( conversation =>
+            <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversation(conversation.id)}} >
+             {conversation.subject}
+            </li>
+          )}
         </ul>
-        </div>
+      </div>
       )
-
     }
 }
 
