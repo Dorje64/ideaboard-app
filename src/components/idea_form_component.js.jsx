@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Axios from 'axios'
 import {Card, CardHeader, CardBody, CardFooter} from 'reactstrap'
+const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas/'
 
 class IdeaFormComponent extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class IdeaFormComponent extends Component {
       title: this.state.title,
       body: this.state.body
     }
-    Axios.put('http://localhost:3001/api/v1/ideas/'+String(this.props.idea.id),
+    Axios.put(IDEA_SERVER + String(this.props.idea.id),
             {idea: idea}
           )
           .then(response => {
