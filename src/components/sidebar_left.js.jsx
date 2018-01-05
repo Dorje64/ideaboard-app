@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import Axios from 'axios'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
 import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
+import Pagination from 'rc-pagination'
 const CONVERSATION_SERVER = 'http://localhost:3001/api/v1/conversations'
 
 class SidebarLeft extends Component{
@@ -12,21 +13,26 @@ class SidebarLeft extends Component{
       modal: false,
       subject: '',
       body: '',
-      receiver: ''
+      receiver: '',
+      current: 1
      };
 
      this.toggle = this.toggle.bind(this);
   }
 
-  componentDidMount(){
+  fetchData = (page=1) =>{
     const {uid} = LocalStorage.getObject('tokens')
     Axios.get(CONVERSATION_SERVER,
-      {params: { uid: uid }}
+      {params: { uid: uid, page: page }}
     )
     .then( response => {
       this.setState({conversations: response.data})
     })
     .catch( error => {console.log(error)})
+  }
+
+  componentDidMount(){
+    this.fetchData();
   }
 
   toggle() {
@@ -58,6 +64,11 @@ class SidebarLeft extends Component{
     .catch( error => {console.log(error)})
   }
 
+  onChange = (page) => {
+    this.fetchData(page);
+    this.setState({current: page})
+    }
+
   render(){
     const modal =
       <div>
@@ -66,19 +77,17 @@ class SidebarLeft extends Component{
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>Create Converstation</ModalHeader>
           <ModalBody>
-              <Row>
+            <Row>
               <Col md={6}>
                 <input type="text" name="receiver" className= "form-control ib-auth-field" placeholder="Email" onChange={this.handleInput}/>
               </Col>
               <Col md={6}>
                 <input type="text" name="subject" className= "form-control ib-auth-field" placeholder="Subject" onChange={this.handleInput}/>
               </Col>
-
                <Col md={12}>
                  <input name="body" onChange = {this.handleInput} className= "form-control ib-auth-field" />
                </Col>
-              </Row>
-
+            </Row>
           </ModalBody>
           <ModalFooter>
             <Button className="conversation-item conversation-create-button" type="submit" onClick={ () => {this.createConversation()}}>Create</Button>{' '}
@@ -100,6 +109,7 @@ class SidebarLeft extends Component{
     return(
       <div>
         {conversationMenu}
+        <Pagination onChange={this.onChange} current={this.state.current} total={10} pageSize={5} />
         <ul className="list-group conversation-list">
           {this.state.conversations.map( conversation =>
             <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversation(conversation.id)}} >
