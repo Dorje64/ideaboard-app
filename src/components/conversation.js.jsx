@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
 import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
-import { MessageList,Input } from 'react-chat-elements';
+import { MessageList } from 'react-chat-elements';
 import 'react-chat-elements/dist/main.css';
 import Cable from 'actioncable'
 const MESSAGE_SERVER = 'http://localhost:3001/api/v1/messages'
@@ -43,7 +43,7 @@ export default class Conversation extends Component{
           received: (data) => {
               let {messages} = this.state
               const {id} = this.props
-              if(data.message.conversation_id == id){
+              if(data.message.conversation_id === id){
                 messages.push(data.message)
                 this.setState({messages: messages, textToSent:''})
               }

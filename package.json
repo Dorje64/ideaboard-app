@@ -9,6 +9,7 @@
     "font-awesome": "^4.7.0",
     "moment": "^2.20.1",
     "moment-timezone": "^0.5.14",
+    "rc-pagination": "^1.14.0",
     "react": "^16.2.0",
     "react-bootstrap": "^0.31.5",
     "react-chat-elements": "^0.8.1",

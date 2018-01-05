@@ -4,6 +4,8 @@ import IdeaComponent from './idea_component.js.jsx'
 import IdeaFormComponent from './idea_form_component.js.jsx'
 import Search from './search.js.jsx'
 import {Container, Row, Col, Button} from 'reactstrap'
+import 'rc-pagination/assets/index.css';
+import Pagination from 'rc-pagination';
 const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas'
 
 class IdeasComponent extends Component{
@@ -11,17 +13,22 @@ class IdeasComponent extends Component{
     super(props)
     this.state ={
       ideas: [],
-      editingIdea: null
+      editingIdea: null,
+      current: 1
     }
   }
 
-  componentDidMount(){
-    Axios.get(IDEA_SERVER)
+  fetchData(page = 0){
+    Axios.get(IDEA_SERVER,{params: {page: page}})
     .then( (response) => {
       console.log(response)
       this.setState({ideas: response.data})
     })
     .catch(error=>{ console.log(error)})
+  }
+
+  componentDidMount(){
+    this.fetchData();
   }
 
   newIdea = () =>{
@@ -45,7 +52,7 @@ class IdeasComponent extends Component{
   }
 
   deleteIdea = (id) => {
-    Axios.delete(IDEA_SERVER + String(id))
+    Axios.delete(IDEA_SERVER + '/'+ String(id))
     .then(response => {
       let ideaIndex = this.state.ideas.findIndex(x => x.id === id)
       let idea = this.state.ideas
@@ -70,12 +77,20 @@ class IdeasComponent extends Component{
     this.setState({editingIdea: id})
   }
 
+  onChange = (page) => {
+    this.fetchData(page);
+    this.setState({current: page})
+    }
+
   render(){
     return(
         <Container>
           <Row className="idea-menu">
-            <Col md={8} xs={4}>
+            <Col md={4} xs={4}>
               <Button className="idea-button" onClick={this.newIdea} > New Idea </Button>
+            </Col>
+            <Col md={4}>
+              <Pagination onChange={this.onChange} current={this.state.current} total={10} pageSize={6} />
             </Col>
             <Col md={4}>
               <Search searchIdea = {this.handleSearch}/>
