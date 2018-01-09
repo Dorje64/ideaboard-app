@@ -34,8 +34,8 @@ class SidebarLeft extends Component{
   totalCount = _ => {
     const {uid} = LocalStorage.getObject('tokens')
     Axios.get(CONVERSATION_SERVER  + '/total_conversations', {params: {uid: uid}})
-    .then( responce =>
-      {debugger; this.setState({totalConversations: Number.parseInt(responce.data)})}
+    .then( response =>
+      {this.setState({totalConversations: Number.parseInt(response.data)})}
     )
     .catch(error => {console.log(error)})
   }
