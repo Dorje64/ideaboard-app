@@ -43,7 +43,7 @@ class App extends Component {
         <Switch>
           <Route exact path = '/sign_in' component = {SignIn}/>
           <PrivateRoute exact path = '/' component = {HomePage} />
-          <Route exaxt path ='/sign_up' component = {SignUp}/>
+          <Route exact path ='/sign_up' component = {SignUp}/>
           <Route component={PageNotFound}/>
         </Switch>
       </Router>

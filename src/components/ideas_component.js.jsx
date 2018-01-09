@@ -27,7 +27,16 @@ class IdeasComponent extends Component{
     .catch(error=>{ console.log(error)})
   }
 
+  totalCount = _ => {
+    Axios.get(IDEA_SERVER  + '/total_ideas')
+    .then( responce =>
+      {debugger; this.setState({totalIdeas: Number.parseInt(responce.data)})}
+    )
+    .catch(error => {console.log(error)})
+  }
+
   componentDidMount(){
+    this.totalCount();
     this.fetchData();
   }
 
@@ -90,7 +99,7 @@ class IdeasComponent extends Component{
               <Button className="idea-button" onClick={this.newIdea} > New Idea </Button>
             </Col>
             <Col md={4}>
-              <Pagination onChange={this.onChange} current={this.state.current} total={10} pageSize={6} />
+              <Pagination onChange={this.onChange} current={this.state.current} total={this.state.totalIdeas} pageSize={6} />
             </Col>
             <Col md={4}>
               <Search searchIdea = {this.handleSearch}/>

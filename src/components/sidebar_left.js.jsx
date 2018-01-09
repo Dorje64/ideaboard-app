@@ -31,7 +31,17 @@ class SidebarLeft extends Component{
     .catch( error => {console.log(error)})
   }
 
+  totalCount = _ => {
+    const {uid} = LocalStorage.getObject('tokens')
+    Axios.get(CONVERSATION_SERVER  + '/total_conversations', {params: {uid: uid}})
+    .then( response =>
+      {this.setState({totalConversations: Number.parseInt(response.data)})}
+    )
+    .catch(error => {console.log(error)})
+  }
+
   componentDidMount(){
+    this.totalCount();
     this.fetchData();
   }
 
@@ -109,7 +119,7 @@ class SidebarLeft extends Component{
     return(
       <div>
         {conversationMenu}
-        <Pagination onChange={this.onChange} current={this.state.current} total={10} pageSize={5} />
+        <Pagination onChange={this.onChange} current={this.state.current} total={this.state.totalConversations} pageSize={10} />
         <ul className="list-group conversation-list">
           {this.state.conversations.map( conversation =>
             <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversation(conversation.id)}} >
