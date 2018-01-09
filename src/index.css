@@ -113,3 +113,12 @@ body {
   height: 400px;
   overflow-x: hidden;
 }
+
+
+/*overidden css*/
+.rc-pagination-item-active {
+    background-color: #563d7c !important;
+    border-color: #ffe484 !important;
+    color: #ffe484 !important;
+
+}
