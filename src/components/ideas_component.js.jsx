@@ -29,8 +29,8 @@ class IdeasComponent extends Component{
 
   totalCount = _ => {
     Axios.get(IDEA_SERVER  + '/total_ideas')
-    .then( responce =>
-      {debugger; this.setState({totalIdeas: Number.parseInt(responce.data)})}
+    .then( response =>
+      {this.setState({totalIdeas: Number.parseInt(response.data)})}
     )
     .catch(error => {console.log(error)})
   }
