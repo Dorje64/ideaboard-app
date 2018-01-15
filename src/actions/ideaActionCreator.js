@@ -1,10 +1,10 @@
-import Axios from 'axios'
-const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas'
+import Axios from 'axios';
+const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas';
 
-export function fetchIdea(url = IDEA_SERVER , page = 1){
+export function fetchIdea(page = 1){
   return{
     type: 'FETCH_IDEA',
-    payload: Axios.get(url,{params: {page: page}})
+    payload: Axios.get(IDEA_SERVER,{params: {page: page}})
   }
 }
 
