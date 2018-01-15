@@ -6,6 +6,12 @@ import Search from './search.js.jsx'
 import {Container, Row, Col, Button} from 'reactstrap'
 import 'rc-pagination/assets/index.css';
 import Pagination from 'rc-pagination';
+
+//connect redux
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as ideaAction from '../actions/ideaActionCreator'
+
 const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas'
 
 class IdeasComponent extends Component{
@@ -18,7 +24,9 @@ class IdeasComponent extends Component{
     }
   }
 
+
   fetchData(page = 0){
+    console.log(this.props.ideas)
     Axios.get(IDEA_SERVER,{params: {page: page}})
     .then( (response) => {
       console.log(response)
@@ -33,6 +41,10 @@ class IdeasComponent extends Component{
       {this.setState({totalIdeas: Number.parseInt(response.data)})}
     )
     .catch(error => {console.log(error)})
+  }
+
+  componentWillMount(){
+    const ideas = this.props.fetchIdea();
   }
 
   componentDidMount(){
@@ -128,4 +140,16 @@ class IdeasComponent extends Component{
   }
 }
 
-export default IdeasComponent
+const mapStateToProps = state => {
+  return {
+    ideas : state.ideas
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  const boundActionCreators = bindActionCreators(ideaAction, dispatch)
+  const allActionProps = {...boundActionCreators, dispatch}
+  return allActionProps
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(IdeasComponent)
