@@ -26,13 +26,19 @@ class IdeasComponent extends Component{
 
 
   fetchData(page = 0){
-    console.log(this.props.ideas)
-    Axios.get(IDEA_SERVER,{params: {page: page}})
-    .then( (response) => {
-      console.log(response)
-      this.setState({ideas: response.data})
-    })
-    .catch(error=>{ console.log(error)})
+    // console.log(this.props.ideas)
+    // Axios.get(IDEA_SERVER,{params: {page: page}})
+    // .then( (response) => {
+    //   console.log(response)
+    //   this.setState({ideas: response.data})
+    // })
+    // .catch(error=>{ console.log(error)})
+    const promise = new Promise((resolve, reject) => {
+                                      const store = this.props.fetchIdea(page: page);
+                                      resolve(store);
+                                    });
+
+    promise.then( (res) => {this.setState({ideas: res.value.data})})
   }
 
   totalCount = _ => {
@@ -41,10 +47,6 @@ class IdeasComponent extends Component{
       {this.setState({totalIdeas: Number.parseInt(response.data)})}
     )
     .catch(error => {console.log(error)})
-  }
-
-  componentWillMount(){
-    const ideas = this.props.fetchIdea();
   }
 
   componentDidMount(){
