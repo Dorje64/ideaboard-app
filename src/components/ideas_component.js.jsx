@@ -26,13 +26,6 @@ class IdeasComponent extends Component{
 
 
   fetchData(page = 0){
-    // console.log(this.props.ideas)
-    // Axios.get(IDEA_SERVER,{params: {page: page}})
-    // .then( (response) => {
-    //   console.log(response)
-    //   this.setState({ideas: response.data})
-    // })
-    // .catch(error=>{ console.log(error)})
     const promise = new Promise((resolve, reject) => {
                                       const store = this.props.fetchIdea(page: page);
                                       resolve(store);
@@ -55,34 +48,36 @@ class IdeasComponent extends Component{
   }
 
   newIdea = () =>{
-    Axios.post(IDEA_SERVER,
-    {idea:
-      {
-        title: '',
-        body: ''
-      }
-    })
-    .then(response => {
-        console.log(response)
-        let Ideas = this.state.ideas
-        Ideas.unshift(response.data)
-        this.setState({ideas: Ideas, editingIdea: response.data.id})
-      }
-    ).catch( error => {
-        console.log(error)
-      }
-    )
+    const promise = new Promise((resolve, reject) => {
+      resolve(this.props.newIdea())
+    });
+    promise.then( (res) => {
+                  const updatedIdeas = [res.value.data, ...this.state.ideas];
+                  this.setState({ideas: updatedIdeas, editingIdea: res.value.data.id})
+                  })
+
+    // .then(response => {
+    //     console.log(response)
+    //     let Ideas = this.state.ideas
+    //     Ideas.unshift(response.data)
+    //     this.setState({ideas: Ideas, editingIdea: response.data.id})
+    //   }
+    // ).catch( error => {
+    //     console.log(error)
+    //   }
+
   }
 
   deleteIdea = (id) => {
-    Axios.delete(IDEA_SERVER + '/'+ String(id))
-    .then(response => {
-      let ideaIndex = this.state.ideas.findIndex(x => x.id === id)
-      let idea = this.state.ideas
-      idea.splice(ideaIndex,1)
-      this.setState(idea: idea)
-    })
-    .catch(error => console.log(error))
+    this.props.deleteIdea(id);
+    // Axios.delete(IDEA_SERVER + '/'+ String(id))
+    // .then(response => {
+    //   let ideaIndex = this.state.ideas.findIndex(x => x.id === id)
+    //   let idea = this.state.ideas
+    //   idea.splice(ideaIndex,1)
+    //   this.setState(idea: idea)
+    // })
+    // .catch(error => console.log(error))
   }
 
   updateIdeas = (idea) => {
@@ -124,8 +119,8 @@ class IdeasComponent extends Component{
               { this.state.ideas.map( (idea) => {
                 if (this.state.editingIdea === idea.id) {
                   return(
-                    <Col md={4}>
-                      <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} />
+                    <Col md={4} key={idea.id} >
+                      <IdeaFormComponent idea={idea} updateIdeas= {this.updateIdeas} />
                     </Col> )
                 }
                 else{
