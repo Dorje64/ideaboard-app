@@ -7,20 +7,40 @@ const initialState = {
 }
 
 const ideaReducer = (state = [], action) => {
-  console.log("calling idea reducer")
   switch(action.type){
-    case "NEW_IDEA":{
-      console.log("NEW_IDEA")
-      break;
+    case "NEW_IDEA_PENDING":
+    return { ...state
     }
 
-    case "DELETE_IDEA":{
-      console.log("Delete IDea");
-      break;
+    case "NEW_IDEA_FULLFILLED":
+    return {
+       ...state,
+       isFulfilled: true,
+       ideas: [action.payload.data, ...state.ideas]
+    }
+
+    case "NEW_IDEA_REJECTED":
+    return {
+      ...state
+    }
+
+    case "DELETE_IDEA_PENDING":
+    return {
+      ...state
+    }
+
+    case "DELETE_IDEA_FULLFILLED":
+    {
+      debugger;
+    }
+
+    case "DELETE_IDEA_REJECTED":
+    return {
+
     }
 
     case "FETCH_IDEA_PENDING":
-      return{ ...state }
+      return { ...state }
 
     case "FETCH_IDEA_FULFILLED":
       return {
@@ -32,8 +52,8 @@ const ideaReducer = (state = [], action) => {
     case "FETCH_IDEA_REJECTED":
       return {
         ...state,
-        isRejected: true,
-        ideas: action.payload.data
+        isRejected: true
+        // ideas: action.payload.data
       };
   }
   return state
