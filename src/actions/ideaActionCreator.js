@@ -8,10 +8,10 @@ export function fetchIdea(page = 1){
   }
 }
 
-export function deleteIdea(idea){
+export function deleteIdea(ideaId){
   return {
     type: 'DELETE_IDEA',
-    payload:  {idea}
+    payload: Axios.delete(IDEA_SERVER+'/'+String(ideaId))
   }
 }
 
@@ -19,5 +19,19 @@ export function updateIdea(idea){
   return {
     type: "UPDATE_IDEA",
     payload: {idea}
+  }
+}
+
+export function newIdea(){
+  return {
+    type: "NEW_IDEA",
+    payload: Axios.post(IDEA_SERVER,
+                                    {idea:
+                                      {
+                                        title: '',
+                                        body: ''
+                                      }
+                                    })
+
   }
 }
