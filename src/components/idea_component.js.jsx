@@ -30,10 +30,10 @@ const IdeaComponent = ({idea, enableEdit, deleteIdea}) =>{
       <Card className="card-pull-down">
         <CardHeader className="card-header-fixed">
             <Row>
-              <Col md={9} tag="h6" >
+              <Col md={7} tag="h6" >
                 {idea.title}
               </Col>
-              <Col md={3} >
+              <Col md={5} >
                 <Row>
                     <span className="col-md-4 fa fa-pencil" aria-hidden="true" onClick= {() => enableEdit(idea.id)} />
                     <span className="col-md-4 fa fa-trash" aria-hidden="true" onClick= {() => deleteIdea(idea.id)} />
