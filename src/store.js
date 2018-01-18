@@ -9,6 +9,4 @@ const middleware = applyMiddleware(  promise(),  thunk,  createLogger() );
 
 const store = createStore(rootReducer, middleware);
 
-// store.dispatch({type: "FETCH_IDEA"})
-
 export default store;
