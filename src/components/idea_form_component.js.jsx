@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import Axios from 'axios'
-import {Card, CardHeader, CardBody, CardFooter} from 'reactstrap'
-const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas/'
+import React, { Component } from 'react';
+import Axios from 'axios';
+import {Card, CardHeader, CardBody, CardFooter} from 'reactstrap';
+const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas/';
 
 class IdeaFormComponent extends Component {
   constructor(props) {
