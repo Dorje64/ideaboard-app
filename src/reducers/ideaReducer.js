@@ -1,9 +1,6 @@
 
 const initialState = {
-  ideas: [{
-    ideaId: 43,
-    ideaText: "hellow world"
-  }]
+  ideas: []
 }
 
 const ideaReducer = (state = [], action) => {
@@ -31,7 +28,6 @@ const ideaReducer = (state = [], action) => {
 
     case "DELETE_IDEA_FULLFILLED":
     {
-      debugger;
     }
 
     case "DELETE_IDEA_REJECTED":
@@ -40,21 +36,13 @@ const ideaReducer = (state = [], action) => {
     }
 
     case "FETCH_IDEA_PENDING":
-      return { ...state }
+      return state;
 
     case "FETCH_IDEA_FULFILLED":
-      return {
-        ...state,
-        isFulfilled: true,
-        ideas: action.payload.data
-      };
+      return action.payload.data;
 
     case "FETCH_IDEA_REJECTED":
-      return {
-        ...state,
-        isRejected: true
-        // ideas: action.payload.data
-      };
+      return state;
   }
   return state
 }
