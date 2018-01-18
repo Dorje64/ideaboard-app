@@ -24,14 +24,14 @@ class IdeasComponent extends Component{
     }
   }
 
-
   fetchData(page = 0){
-    const promise = new Promise((resolve, reject) => {
-                                      const store = this.props.fetchIdea(page: page);
-                                      resolve(store);
-                                    });
+    this.props.fetchIdea(page: page);
+    // const promise = new Promise((resolve, reject) => {
+    //                                   const store = this.props.fetchIdea(page: page);
+    //                                   resolve(store);
+    //                                 });
 
-    promise.then( (res) => {this.setState({ideas: res.value.data})})
+    // promise.then( (res) => {this.setState({ideas: res.value.data})})
   }
 
   totalCount = _ => {
@@ -51,21 +51,11 @@ class IdeasComponent extends Component{
     const promise = new Promise((resolve, reject) => {
       resolve(this.props.newIdea())
     });
+
     promise.then( (res) => {
                   const updatedIdeas = [res.value.data, ...this.state.ideas];
                   this.setState({ideas: updatedIdeas, editingIdea: res.value.data.id})
                   })
-
-    // .then(response => {
-    //     console.log(response)
-    //     let Ideas = this.state.ideas
-    //     Ideas.unshift(response.data)
-    //     this.setState({ideas: Ideas, editingIdea: response.data.id})
-    //   }
-    // ).catch( error => {
-    //     console.log(error)
-    //   }
-
   }
 
   deleteIdea = (id) => {
@@ -101,6 +91,7 @@ class IdeasComponent extends Component{
     }
 
   render(){
+    debugger;
     return(
         <Container>
           <Row className="idea-menu">
@@ -116,7 +107,7 @@ class IdeasComponent extends Component{
           </Row>
 
           <Row>
-              { this.state.ideas.map( (idea) => {
+              { this.props.ideas.map( (idea) => {
                 if (this.state.editingIdea === idea.id) {
                   return(
                     <Col md={4} key={idea.id} >
@@ -139,7 +130,7 @@ class IdeasComponent extends Component{
 
 const mapStateToProps = state => {
   return {
-    ideas : state.ideas
+    ideas : state.idea
   }
 }
 
