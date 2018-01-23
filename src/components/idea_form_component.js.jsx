@@ -22,14 +22,16 @@ class IdeaFormComponent extends Component {
       title: this.state.title,
       body: this.state.body
     }
-    Axios.put(IDEA_SERVER + String(this.props.idea.id),
-            {idea: idea}
-          )
-          .then(response => {
-            console.log(response)
-            this.props.updateIdeas(response.data)
-          })
-          .catch(error => console.log(error))
+
+    this.props.updateIdeas(this.props.idea.id,idea)
+    // Axios.put(IDEA_SERVER + String(this.props.idea.id),
+    //         {idea: idea}
+    //       )
+    //       .then(response => {
+    //         console.log(response)
+    //         this.props.updateIdeas(response.data)
+    //       })
+    //       .catch(error => console.log(error))
   }
 
   render() {
