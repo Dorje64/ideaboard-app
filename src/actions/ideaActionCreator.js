@@ -43,3 +43,19 @@ export function updateIdea(id , data){
     payload: Axios.put(IDEA_SERVER + '/' + String(id),{idea: data})
   }
 }
+
+export function totalCount(){
+  return {
+    type: "TOTAL_COUNT",
+    payload: Axios.get(IDEA_SERVER  + '/total_ideas')
+  }
+}
+
+export function search(keyword){
+  return{
+    type: "SEARCH_IDEA",
+    payload: Axios.post(IDEA_SERVER + '/search', {
+      keyword: keyword
+    })
+  }
+}
