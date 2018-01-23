@@ -1,13 +1,27 @@
 const initialState = {
-  conversation_id: 1,
-  users: [1,2]
+    conversations: []
 }
 
-const conversationReducer = (state = initialState, action) => {
-  // console.log("testing dispatch conversations");
-  // console.log(state);
-  // console.log(state,action);
-  return state;
+const conversationReducer = (state= initialState , action) =>{
+  switch (action.type) {
+    case "FECTCH_CONVERSATION_PENDING":
+      return Object.assign({}, state)
+
+
+    case "FECTCH_CONVERSATION_FULFILLED":
+      return Object.assign({}, state, {
+         conversations: action.payload.data
+        }
+      )
+
+    case "FECTCH_CONVERSATION_REJECTED":
+      return Object.assign({}, state)
+
+
+    default:
+      return Object.assign({}, state)
+
+  }
 }
 
 export default conversationReducer;
