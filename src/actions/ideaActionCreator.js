@@ -8,17 +8,11 @@ export function fetchIdea(page = 1){
   }
 }
 
-export function deleteIdea(ideaId){
+export function deleteIdea(id){
   return {
     type: 'DELETE_IDEA',
-    payload: Axios.delete(IDEA_SERVER+'/'+String(ideaId))
-  }
-}
-
-export function updateIdea(idea){
-  return {
-    type: "UPDATE_IDEA",
-    payload: {idea}
+    payload: Axios.delete(IDEA_SERVER+'/'+String(id)),
+    deletedId: id
   }
 }
 
@@ -33,5 +27,19 @@ export function newIdea(){
                                       }
                                     })
 
+  }
+}
+
+export function enableEdit(id){
+  return {
+    type: "ENABLE_EDIT",
+    payload: id
+  }
+}
+
+export function updateIdea(id , data){
+  return {
+    type: "UPDATE_IDEA",
+    payload: Axios.put(IDEA_SERVER + '/' + String(id),{idea: data})
   }
 }
