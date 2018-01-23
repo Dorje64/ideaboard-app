@@ -3,6 +3,11 @@ import Axios from 'axios'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
 import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
 import Pagination from 'rc-pagination'
+
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import * as ConversationAction from '../actions/conversationActionCreator';
+
 const CONVERSATION_SERVER = 'http://localhost:3001/api/v1/conversations'
 
 class SidebarLeft extends Component{
@@ -22,13 +27,14 @@ class SidebarLeft extends Component{
 
   fetchData = (page=1) =>{
     const {uid} = LocalStorage.getObject('tokens')
-    Axios.get(CONVERSATION_SERVER,
-      {params: { uid: uid, page: page }}
-    )
-    .then( response => {
-      this.setState({conversations: response.data})
-    })
-    .catch( error => {console.log(error)})
+    this.props.fetchConversation(page);
+    // Axios.get(CONVERSATION_SERVER,
+    //   {params: { uid: uid, page: page }}
+    // )
+    // .then( response => {
+    //   this.setState({conversations: response.data})
+    // })
+    // .catch( error => {console.log(error)})
   }
 
   totalCount = _ => {
@@ -115,14 +121,13 @@ class SidebarLeft extends Component{
           <input className="form-control search-input conversation-search-input"/>
         </form>
       </div>
-
     return(
       <div>
         {conversationMenu}
         <Pagination onChange={this.onChange} current={this.state.current} total={this.state.totalConversations} pageSize={10} />
         <ul className="list-group conversation-list">
-          {this.state.conversations.map( conversation =>
-            <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversation(conversation.id)}} >
+          { this.props.conversation.conversations.map( conversation =>
+            <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversationSelect(conversation.id)}} >
              {conversation.subject}
             </li>
           )}
@@ -132,4 +137,16 @@ class SidebarLeft extends Component{
     }
 }
 
-export default SidebarLeft
+const mapStateToProps = (state) => {
+  return {
+    conversation: state.conversation
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  const boundCreators = bindActionCreators(ConversationAction, dispatch);
+  const allActionProps = {...boundCreators, dispatch}
+  return allActionProps
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarLeft)
