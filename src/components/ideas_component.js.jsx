@@ -25,7 +25,7 @@ class IdeasComponent extends Component{
   }
 
   fetchData(page = 0){
-    this.props.fetchIdea(page: page);
+    this.props.fetchIdea(page);
     // const promise = new Promise((resolve, reject) => {
     //                                   const store = this.props.fetchIdea(page: page);
     //                                   resolve(store);
@@ -48,14 +48,16 @@ class IdeasComponent extends Component{
   }
 
   newIdea = () =>{
-    const promise = new Promise((resolve, reject) => {
-      resolve(this.props.newIdea())
-    });
+    this.props.newIdea();
 
-    promise.then( (res) => {
-                  const updatedIdeas = [res.value.data, ...this.state.ideas];
-                  this.setState({ideas: updatedIdeas, editingIdea: res.value.data.id})
-                  })
+    // const promise = new Promise((resolve, reject) => {
+    //   resolve(this.props.newIdea())
+    // });
+    //
+    // promise.then( (res) => {
+    //               const updatedIdeas = [res.value.data, ...this.state.ideas];
+    //               this.setState({ideas: updatedIdeas, editingIdea: res.value.data.id})
+    //               })
   }
 
   deleteIdea = (id) => {
@@ -70,11 +72,12 @@ class IdeasComponent extends Component{
     // .catch(error => console.log(error))
   }
 
-  updateIdeas = (idea) => {
-    let ideaIndex = this.state.ideas.findIndex(x => x.id === idea.id)
-    let ideas = this.state.ideas
-    ideas[ideaIndex] = idea
-    this.setState({ideas: ideas , editingIdea: null})
+  updateIdeas = (id, idea) => {
+    this.props.updateIdea(id, idea)
+    // let ideaIndex = this.state.ideas.findIndex(x => x.id === idea.id)
+    // let ideas = this.state.ideas
+    // ideas[ideaIndex] = idea
+    // this.setState({ideas: ideas , editingIdea: null})
   }
 
   handleSearch = (foundItem) => {
@@ -82,16 +85,14 @@ class IdeasComponent extends Component{
   }
 
   enableEdit = (id) => {
-    this.setState({editingIdea: id})
+    this.props.enableEdit(id);
   }
 
   onChange = (page) => {
     this.fetchData(page);
-    this.setState({current: page})
     }
 
   render(){
-    debugger;
     return(
         <Container>
           <Row className="idea-menu">
@@ -99,7 +100,7 @@ class IdeasComponent extends Component{
               <Button className="idea-button" onClick={this.newIdea} > New Idea </Button>
             </Col>
             <Col md={4}>
-              <Pagination onChange={this.onChange} current={this.state.current} total={this.state.totalIdeas} pageSize={6} />
+              <Pagination onChange={this.onChange} total={this.state.totalIdeas} pageSize={6} />
             </Col>
             <Col md={4}>
               <Search searchIdea = {this.handleSearch}/>
@@ -107,8 +108,8 @@ class IdeasComponent extends Component{
           </Row>
 
           <Row>
-              { this.props.ideas.map( (idea) => {
-                if (this.state.editingIdea === idea.id) {
+              { this.props.idea.ideas.map( (idea) => {
+                if (this.props.idea.editingIdea === idea.id) {
                   return(
                     <Col md={4} key={idea.id} >
                       <IdeaFormComponent idea={idea} updateIdeas= {this.updateIdeas} />
@@ -130,7 +131,7 @@ class IdeasComponent extends Component{
 
 const mapStateToProps = state => {
   return {
-    ideas : state.idea
+    idea : state.idea
   }
 }
 
