@@ -59,3 +59,20 @@ export function search(keyword){
     })
   }
 }
+
+export function share(idea){
+  return{
+      type: "SHARE_IDEA",
+      payload: Axios.post("https://api.github.com/gists",
+        {
+          "description": idea.title,
+          "public": true,
+          "files": {
+            "file1.txt": {
+              "content": idea.body
+            }
+          }
+        })
+  }
+
+}
