@@ -1,20 +1,15 @@
 import React, {Component} from 'react'
-import Axios from 'axios'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Row, Col } from 'reactstrap';
-import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
 import Pagination from 'rc-pagination'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import * as ConversationAction from '../actions/conversationActionCreator';
 
-const CONVERSATION_SERVER = 'http://localhost:3001/api/v1/conversations'
-
 class SidebarLeft extends Component{
   constructor(props){
     super(props)
     this.state = {
-      conversations: [],
       modal: false,
       subject: '',
       body: '',
@@ -26,24 +21,11 @@ class SidebarLeft extends Component{
   }
 
   fetchData = (page=1) =>{
-    const {uid} = LocalStorage.getObject('tokens')
     this.props.fetchConversation(page);
-    // Axios.get(CONVERSATION_SERVER,
-    //   {params: { uid: uid, page: page }}
-    // )
-    // .then( response => {
-    //   this.setState({conversations: response.data})
-    // })
-    // .catch( error => {console.log(error)})
   }
 
   totalCount = _ => {
-    const {uid} = LocalStorage.getObject('tokens')
-    Axios.get(CONVERSATION_SERVER  + '/total_conversations', {params: {uid: uid}})
-    .then( response =>
-      {this.setState({totalConversations: Number.parseInt(response.data)})}
-    )
-    .catch(error => {console.log(error)})
+    this.props.totalCount();
   }
 
   componentDidMount(){
@@ -62,22 +44,7 @@ class SidebarLeft extends Component{
 
   createConversation = () => {
     const {subject,body,receiver} = this.state
-    const {uid} = LocalStorage.getObject('tokens')
-    Axios.post(CONVERSATION_SERVER,
-       {
-        subject: subject,
-        body: body,
-        receiver: receiver,
-        uid: uid
-      }
-    )
-    .then( responce => {
-        let {conversations} = this.state;
-        conversations.unshift(responce.data)
-        this.setState({conversations: conversations})
-        this.toggle()
-    })
-    .catch( error => {console.log(error)})
+    this.props.createConversation(subject, body, receiver)
   }
 
   onChange = (page) => {
@@ -98,7 +65,12 @@ class SidebarLeft extends Component{
                 <input type="text" name="receiver" className= "form-control ib-auth-field" placeholder="Email" onChange={this.handleInput}/>
               </Col>
               <Col md={6}>
-                <input type="text" name="subject" className= "form-control ib-auth-field" placeholder="Subject" onChange={this.handleInput}/>
+                  <select className ="form-control ib-auth-field custom-select" name = "subject" onChange = { this.handleInput }>
+                    { this.props.idea.ideas.map((idea) => {
+                      return <option value={idea.title}> {idea.title} </option>
+                    })
+                  }
+                  </select>
               </Col>
                <Col md={12}>
                  <input name="body" onChange = {this.handleInput} className= "form-control ib-auth-field" />
@@ -110,7 +82,7 @@ class SidebarLeft extends Component{
             <Button color="secondary" className="conversation-item conversation-create-button" onClick={this.toggle}>Cancel</Button>
           </ModalFooter>
         </Modal>
-      </form>
+        </form>
       </div>
 
     const conversationMenu =
@@ -124,7 +96,7 @@ class SidebarLeft extends Component{
     return(
       <div>
         {conversationMenu}
-        <Pagination onChange={this.onChange} current={this.state.current} total={this.state.totalConversations} pageSize={10} />
+        <Pagination onChange={this.onChange} current={this.state.current} total={this.props.conversation.totalConversations} pageSize={10} />
         <ul className="list-group conversation-list">
           { this.props.conversation.conversations.map( conversation =>
             <li key= {conversation.id} className="list-group-item" onClick= {() => {this.props.conversationSelect(conversation.id)}} >
@@ -139,7 +111,8 @@ class SidebarLeft extends Component{
 
 const mapStateToProps = (state) => {
   return {
-    conversation: state.conversation
+    conversation: state.conversation,
+    idea: state.idea
   }
 }
 
