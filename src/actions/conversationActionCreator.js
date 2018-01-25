@@ -9,3 +9,24 @@ export function fetchConversation(page = 1){
     'payload': Axios.get(CONVERSATION_SERVER, {params: { uid: uid, page: page }})
   }
 }
+
+export function totalCount(){
+  return{
+    'type': "TOTAL_CONV",
+    'payload': Axios.get(CONVERSATION_SERVER  + '/total_conversations', {params: {uid: uid}})
+  }
+}
+
+export function createConversation(subject,body,receiver){
+  return {
+    'type': "CREATE_CONV",
+    'payload': Axios.post(CONVERSATION_SERVER,
+       {
+        subject: subject,
+        body: body,
+        receiver: receiver,
+        uid: uid
+      }
+    )
+  }
+}
