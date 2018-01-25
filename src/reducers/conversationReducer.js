@@ -1,5 +1,6 @@
 const initialState = {
-    conversations: []
+    conversations: [],
+    totalConversations: 0
 }
 
 const conversationReducer = (state= initialState , action) =>{
@@ -17,6 +18,23 @@ const conversationReducer = (state= initialState , action) =>{
     case "FECTCH_CONVERSATION_REJECTED":
       return Object.assign({}, state)
 
+    case "TOTAL_CONV_PENDING":
+      return state
+
+    case "TOTAL_CONV_FULFILLED":
+      return Object.assign({}, state, { totalConversations: action.payload.data } )
+
+    case "TOTAL_CONV_REJECTED":
+      return state;
+
+    case "CREATE_CONV_PENDING":
+      return state;
+
+    case "CREATE_CONV_FULFILLED":
+      return Object.assign({}, state, {conversations: [action.payload.data, ...state.conversations.slice(0,-1)]})
+
+    case "CREATE_CONV_REJECTED":
+      return state;
 
     default:
       return Object.assign({}, state)
