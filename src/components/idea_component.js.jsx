@@ -1,30 +1,9 @@
 import React from 'react';
 import {Row,Col, Card, CardHeader, CardText, CardBody, CardFooter} from 'reactstrap';
 import DateTimeHelper from '../helpers/date_time_helper.js'
-import Axios from 'axios'
 
-const IdeaComponent = ({idea, enableEdit, deleteIdea}) =>{
+const IdeaComponent = ({idea, enableEdit, deleteIdea, shareGist}) =>{
     let dateTime = new DateTimeHelper(idea.created_at);
-
-    const shareGist = (idea) => {
-      Axios.post("https://api.github.com/gists",
-        {
-          "description": idea.title,
-          "public": true,
-          "files": {
-            "file1.txt": {
-              "content": idea.body
-            }
-          }
-        })
-      .then(response=> {
-        alert(response.data.git_pull_url)
-      })
-      .catch( error => {
-        alert(error)
-      })
-
-    }
 
     return(
       <Card className="card-pull-down">
