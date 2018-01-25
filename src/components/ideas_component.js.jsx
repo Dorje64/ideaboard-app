@@ -1,38 +1,24 @@
-import React, { Component } from 'react'
-import Axios from 'axios'
-import IdeaComponent from './idea_component.js.jsx'
-import IdeaFormComponent from './idea_form_component.js.jsx'
-import Search from './search.js.jsx'
-import {Container, Row, Col, Button} from 'reactstrap'
+import React, { Component } from 'react';
+import IdeaComponent from './idea_component.js.jsx';
+import IdeaFormComponent from './idea_form_component.js.jsx';
+import Search from './search.js.jsx';
+import {Container, Row, Col, Button} from 'reactstrap';
 import 'rc-pagination/assets/index.css';
 import Pagination from 'rc-pagination';
-const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas'
+
+//connect redux
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import * as ideaAction from '../actions/ideaActionCreator';
 
 class IdeasComponent extends Component{
-  constructor(props){
-    super(props)
-    this.state ={
-      ideas: [],
-      editingIdea: null,
-      current: 1
-    }
-  }
 
   fetchData(page = 0){
-    Axios.get(IDEA_SERVER,{params: {page: page}})
-    .then( (response) => {
-      console.log(response)
-      this.setState({ideas: response.data})
-    })
-    .catch(error=>{ console.log(error)})
+    this.props.fetchIdea(page);
   }
 
   totalCount = _ => {
-    Axios.get(IDEA_SERVER  + '/total_ideas')
-    .then( response =>
-      {this.setState({totalIdeas: Number.parseInt(response.data)})}
-    )
-    .catch(error => {console.log(error)})
+    this.props.totalCount();
   }
 
   componentDidMount(){
@@ -40,55 +26,32 @@ class IdeasComponent extends Component{
     this.fetchData();
   }
 
-  newIdea = () =>{
-    Axios.post(IDEA_SERVER,
-    {idea:
-      {
-        title: '',
-        body: ''
-      }
-    })
-    .then(response => {
-        console.log(response)
-        let Ideas = this.state.ideas
-        Ideas.unshift(response.data)
-        this.setState({ideas: Ideas, editingIdea: response.data.id})
-      }
-    ).catch( error => {
-        console.log(error)
-      }
-    )
+  newIdea = () => {
+    this.props.newIdea();
   }
 
   deleteIdea = (id) => {
-    Axios.delete(IDEA_SERVER + '/'+ String(id))
-    .then(response => {
-      let ideaIndex = this.state.ideas.findIndex(x => x.id === id)
-      let idea = this.state.ideas
-      idea.splice(ideaIndex,1)
-      this.setState(idea: idea)
-    })
-    .catch(error => console.log(error))
+    this.props.deleteIdea(id);
   }
 
-  updateIdeas = (idea) => {
-    let ideaIndex = this.state.ideas.findIndex(x => x.id === idea.id)
-    let ideas = this.state.ideas
-    ideas[ideaIndex] = idea
-    this.setState({ideas: ideas , editingIdea: null})
+  updateIdeas = (id, idea) => {
+    this.props.updateIdea(id, idea)
   }
 
-  handleSearch = (foundItem) => {
-    this.setState( {ideas: foundItem} )
+  handleSearch = (keyword) => {
+    this.props.search(keyword)
   }
 
   enableEdit = (id) => {
-    this.setState({editingIdea: id})
+    this.props.enableEdit(id);
+  }
+
+  shareGist = (idea) =>{
+    this.props.share(idea);
   }
 
   onChange = (page) => {
     this.fetchData(page);
-    this.setState({current: page})
     }
 
   render(){
@@ -99,7 +62,7 @@ class IdeasComponent extends Component{
               <Button className="idea-button" onClick={this.newIdea} > New Idea </Button>
             </Col>
             <Col md={4}>
-              <Pagination onChange={this.onChange} current={this.state.current} total={this.state.totalIdeas} pageSize={6} />
+              <Pagination onChange={this.onChange} total={this.props.idea.totalCount} pageSize={6} />
             </Col>
             <Col md={4}>
               <Search searchIdea = {this.handleSearch}/>
@@ -107,17 +70,17 @@ class IdeasComponent extends Component{
           </Row>
 
           <Row>
-              { this.state.ideas.map( (idea) => {
-                if (this.state.editingIdea === idea.id) {
+              { this.props.idea.ideas.map( (idea) => {
+                if (this.props.idea.editingIdea === idea.id) {
                   return(
-                    <Col md={4}>
-                      <IdeaFormComponent idea={idea} key={idea.key} updateIdeas= {this.updateIdeas} />
+                    <Col md={4} key={idea.id} >
+                      <IdeaFormComponent idea={idea} updateIdeas= {this.updateIdeas} />
                     </Col> )
                 }
                 else{
                   return(
                     <Col md={4} key={idea.id}>
-                      <IdeaComponent idea={idea} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} />
+                      <IdeaComponent idea={idea} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} shareGist={this.shareGist}/>
                     </Col>
                     )}
                   }
@@ -128,4 +91,16 @@ class IdeasComponent extends Component{
   }
 }
 
-export default IdeasComponent
+const mapStateToProps = state => {
+  return {
+    idea : state.idea
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  const boundActionCreators = bindActionCreators(ideaAction, dispatch)
+  const allActionProps = {...boundActionCreators, dispatch}
+  return allActionProps
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(IdeasComponent)

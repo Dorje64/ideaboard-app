@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import Axios from 'axios'
 
 class Search extends Component{
   constructor(props){
@@ -8,25 +7,14 @@ class Search extends Component{
       keyword: ''
     }
   }
-
+  
   handleInput = (e) => {
     this.setState({keyword: e.target.value})
   }
 
   searchIdea = (e) => {
     e.preventDefault();
-
-    let keyword = this.state.keyword;
-    Axios.post('http://localhost:3001/api/v1/ideas/search',
-      {
-        keyword: keyword
-      }
-    )
-    .then( response => {
-      console.log(response)
-      this.props.searchIdea(response.data)
-    })
-    .catch( error => error => console.log(error))
+    this.props.searchIdea(this.state.keyword)
   }
 
   render(){

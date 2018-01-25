@@ -1,7 +1,5 @@
-import React, { Component } from 'react'
-import Axios from 'axios'
-import {Card, CardHeader, CardBody, CardFooter} from 'reactstrap'
-const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas/'
+import React, { Component } from 'react';
+import {Card, CardHeader, CardBody, CardFooter} from 'reactstrap';
 
 class IdeaFormComponent extends Component {
   constructor(props) {
@@ -22,14 +20,7 @@ class IdeaFormComponent extends Component {
       title: this.state.title,
       body: this.state.body
     }
-    Axios.put(IDEA_SERVER + String(this.props.idea.id),
-            {idea: idea}
-          )
-          .then(response => {
-            console.log(response)
-            this.props.updateIdeas(response.data)
-          })
-          .catch(error => console.log(error))
+    this.props.updateIdeas(this.props.idea.id,idea)
   }
 
   render() {

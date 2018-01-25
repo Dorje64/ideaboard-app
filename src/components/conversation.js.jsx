@@ -1,13 +1,19 @@
-import React, {Component} from 'react'
-import Axios from 'axios'
+import React, {Component} from 'react';
+import Axios from 'axios';
 import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
 import { MessageList } from 'react-chat-elements';
 import 'react-chat-elements/dist/main.css';
 import Cable from 'actioncable'
-const MESSAGE_SERVER = 'http://localhost:3001/api/v1/messages'
-// const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
 
-export default class Conversation extends Component{
+// const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
+//connect redux
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as conversationAction from '../actions/conversationActionCreator'
+
+const MESSAGE_SERVER = 'http://localhost:3001/api/v1/messages';
+
+class Conversation extends Component{
   constructor(props){
     super(props)
     this.state = {
@@ -24,6 +30,7 @@ export default class Conversation extends Component{
   }
 
   renderMessages = (conversation_id) => {
+    // this.props.fetchMessage(conversation_id);
     Axios.get(MESSAGE_SERVER,
         {params: { conversation_id: conversation_id, uid: this.currentUid }}
       )
@@ -120,3 +127,17 @@ export default class Conversation extends Component{
   )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    idea : state.idea
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  const boundActionCreators = bindActionCreators(conversationAction, dispatch)
+  const allActionProps = {...boundActionCreators, dispatch}
+  return allActionProps
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Conversation)
