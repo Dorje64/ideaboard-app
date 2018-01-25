@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Axios from 'axios';
 import IdeaComponent from './idea_component.js.jsx';
 import IdeaFormComponent from './idea_form_component.js.jsx';
 import Search from './search.js.jsx';
@@ -13,9 +12,6 @@ import { connect } from 'react-redux';
 import * as ideaAction from '../actions/ideaActionCreator';
 
 class IdeasComponent extends Component{
-  constructor(props){
-    super(props)
-  }
 
   fetchData(page = 0){
     this.props.fetchIdea(page);
@@ -50,6 +46,10 @@ class IdeasComponent extends Component{
     this.props.enableEdit(id);
   }
 
+  shareGist = (idea) =>{
+    this.props.share(idea);
+  }
+
   onChange = (page) => {
     this.fetchData(page);
     }
@@ -80,7 +80,7 @@ class IdeasComponent extends Component{
                 else{
                   return(
                     <Col md={4} key={idea.id}>
-                      <IdeaComponent idea={idea} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} />
+                      <IdeaComponent idea={idea} enableEdit={this.enableEdit} deleteIdea={this.deleteIdea} shareGist={this.shareGist}/>
                     </Col>
                     )}
                   }
