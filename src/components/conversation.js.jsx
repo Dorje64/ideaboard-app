@@ -5,14 +5,13 @@ import { MessageList } from 'react-chat-elements';
 import 'react-chat-elements/dist/main.css';
 import Cable from 'actioncable'
 
-// const cable = ActionCable.createConsumer('ws://localhost:3001/cable')
 //connect redux
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import * as conversationAction from '../actions/conversationActionCreator'
 
-const MESSAGE_SERVER = 'http://localhost:3001/api/v1/messages';
-
+const MESSAGE_SERVER = process.env.REACT_APP_HOST_API + '/api/v1/messages';
+const SOCKET = process.env.REACT_APP_SOCKET_API;
 class Conversation extends Component{
   constructor(props){
     super(props)
@@ -41,7 +40,7 @@ class Conversation extends Component{
   }
 
   createSocket(){
-    let cable = Cable.createConsumer('ws://localhost:3001/cable');
+    let cable = Cable.createConsumer(SOCKET + '/cable');
     this.chats = cable.subscriptions.create({
           channel: 'ChatChannel'
             },

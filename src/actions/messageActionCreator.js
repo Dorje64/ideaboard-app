@@ -1,6 +1,6 @@
 import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage';
 import Axios from 'axios';
-const MESSAGE_SERVER = 'http://localhost:3001/api/v1/messages';
+const MESSAGE_SERVER = process.env.REACT_APP_HOST_API + '/api/v1/messages';
 const currentUid = LocalStorage.getObject('tokens').uid;
 const currentUserId = LocalStorage.getObject('data').id;
 

@@ -1,5 +1,5 @@
 import Axios from 'axios';
-const IDEA_SERVER = 'http://localhost:3001/api/v1/ideas';
+const IDEA_SERVER = process.env.REACT_APP_HOST_API + '/api/v1/ideas';
 
 export function fetchIdea(page = 1){
   return{

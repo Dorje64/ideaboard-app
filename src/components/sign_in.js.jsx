@@ -4,6 +4,7 @@ import Axios from 'axios'
 import {Redirect} from 'react-router-dom'
 import {reactLocalStorage as LocalStorage} from 'reactjs-localstorage'
 
+const HOST_API = process.env.REACT_APP_HOST_API
 export default class SignIn extends Component{
   constructor(props){
     super(props)
@@ -21,7 +22,7 @@ export default class SignIn extends Component{
   handleSubmit = (e) => {
     e.preventDefault();
 
-    Axios.post('http://localhost:3001/auth/sign_in',
+    Axios.post(HOST_API+'/auth/sign_in',
       {
         email: this.state.email,
         password: this.state.password
@@ -67,9 +68,6 @@ export default class SignIn extends Component{
             </Col>
           </Row>
         </Container>)
-
     }
-
-
   }
 }

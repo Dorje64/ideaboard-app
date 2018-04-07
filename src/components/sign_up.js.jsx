@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
+const HOST_API = process.env.REACT_APP_HOST_API + '/auth';
 
 class SignUp extends Component{
   constructor(props){
@@ -17,7 +18,7 @@ class SignUp extends Component{
 
   handleSubmit = (e) => {
     e.preventDefault();
-    Axios.post('http://localhost:3001/auth',
+    Axios.post(HOST_API,
       {
         email: this.state.email,
         password: this.state.password,
