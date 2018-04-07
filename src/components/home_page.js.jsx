@@ -17,7 +17,6 @@ class HomePage extends Component {
       conversationId: null
     }
   }
-
   renderConversation = (id) => {
     this.setState({conversationId: id})
   }
@@ -29,7 +28,7 @@ class HomePage extends Component {
         <Container fluid>
           <Row>
             <Col md={2} xs={2} className="sidebar-left">
-              <SidebarLeft conversation = {this.renderConversation}/>
+              <SidebarLeft conversationSelect = {this.renderConversation}/>
             </Col>
             <Col md={8} xs={8} >
               { this.state.conversationId ? (<Conversation id = {this.state.conversationId} />) : (<IdeasComponent/>)}
