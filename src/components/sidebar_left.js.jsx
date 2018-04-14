@@ -43,8 +43,11 @@ class SidebarLeft extends Component{
     }
 
   createConversation = () => {
-    const {subject,body,receiver} = this.state
+    const {body,receiver} = this.state;
+    let {subject} = this.state;
+    subject = subject === '' ? this.props.idea.ideas[0].title : subject
     this.props.createConversation(subject, body, receiver)
+    this.toggle()
   }
 
   onChange = (page) => {
@@ -65,7 +68,7 @@ class SidebarLeft extends Component{
                 <input type="text" name="receiver" className= "form-control ib-auth-field" placeholder="Email" onChange={this.handleInput}/>
               </Col>
               <Col md={6}>
-                  <select className ="form-control ib-auth-field custom-select" name = "subject" onChange = { this.handleInput }>
+                  <select className ="form-control ib-auth-field custom-select" name = "subject" onChange = { this.handleInput } >
                     { this.props.idea.ideas.map((idea) => {
                       return <option value={idea.title}> {idea.title} </option>
                     })
